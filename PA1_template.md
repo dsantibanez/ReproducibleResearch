@@ -94,8 +94,8 @@ sapply(data, function(x) sum(is.na(x)))
 ```
 
 ```r
-##The idea here is to eplace missing values with the value of the mean of 5 min interval previously calculated.
-##The Strategy is to merge the original data set with a column containing the meaning of 5 min interval. Then, when there is a NA value it is replaced by the value in the same row of the new column previously added with the merge function
+##The idea here is to eplace missing values with the value of the mean of 5 min ##interval previously calculated.
+##The Strategy is to merge the original data set with a column containing the ##meaning of 5 min interval. Then, when there is a NA value it is replaced by the ##value in the same row of the new column previously added with the merge function
 mean5minInterval<-aggregate(data$steps,by=list(data$interval),FUN=mean,na.rm=TRUE)
 names(mean5minInterval)<-c("interval", "meanSteps")
 mergeDF<-merge(data, mean5minInterval, by.x = "interval", by.y = "interval")
@@ -173,13 +173,6 @@ Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minut
 stepsInterWdays<-aggregate(steps ~ interval+weekdays,data=filledDF,FUN=mean)
 par(mar=c(4,4,4,4))
 library(lattice)
-```
-
-```
-## Warning: package 'lattice' was built under R version 3.1.3
-```
-
-```r
 xyplot(steps ~ interval | weekdays, data=stepsInterWdays, layout = c(1, 2),type="l",xlab="Interval", ylab="Number of Steps")
 ```
 
