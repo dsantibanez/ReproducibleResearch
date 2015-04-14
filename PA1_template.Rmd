@@ -57,10 +57,10 @@ Fill in all NA values in the data set
 ```{r,echo = TRUE,warning=FALSE}
 ##Find any NA values
 sapply(data, function(x) sum(is.na(x)))
-##Replace missing values with the value of the mean of 5 min interval
+##The idea here is to eplace missing values with the value of the mean of 5 min interval previously calculated.
+##The Strategy is to merge the original data set with a column containing the meaning of 5 min interval. Then, when there is a NA value it is replaced by the value in the same row of the new column previously added with the merge function
 mean5minInterval<-aggregate(data$steps,by=list(data$interval),FUN=mean,na.rm=TRUE)
 names(mean5minInterval)<-c("interval", "meanSteps")
-
 mergeDF<-merge(data, mean5minInterval, by.x = "interval", by.y = "interval")
 mergeDFSorted<-mergeDF[order(mergeDF$date),]
 mergeDFSorted$steps<-as.numeric(mergeDFSorted$steps)
